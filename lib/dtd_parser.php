@@ -85,16 +85,30 @@ function decision($min, $max) {
   return 1;
 }
 
-function hasQuantifier($s) {
+function getQuantifierAction($s) {
+  $limit = 49;
+  $amount = -1;
+
   if($s == '?') { // zero or one
-    return true;
-  } elseif($s == '+') { // one or more
-    return true;
-  } elseif($s == '*') { // zero or more
-    return true;
+    if(mt_rand(0, 99) > 49)
+      $amount = 1;
+    $amount = 0;
+  } elseif($s == '+' || $s == '*') {
+    $amount = 0;
+    // One or more, so we need at least one
+    if($s == '+') {
+      // But we don't want too many
+      $limit *= 1.25;
+      $amount++;
+    }
+
+    while(mt_rand(0, 99) > $limit) {
+      $amount++;
+      $limit *= 1.25;
+    }
   }
 
-  return false;
+  return $amount;
 }
 
 function parseX($cs) {
@@ -105,15 +119,32 @@ function parseX($cs) {
   $match = $matches[1];
   $quantifier = substr($cs, $matches[1][1] + strlen($matches[1][0])+1, 1);
 
+  // Make the string an array so we can multiply it
+  $parsed = array(substr($cs, $match[1], strlen($match[0])));
+
   // Evaluate quantifier
-  $extraChar = 0;
-  if($quantifierAction = hasQuantifier($quantifier)) {
-    // Do thing
-    echo $quantifierAction;
+  $extraChar = 0; // If we need to remove an extra character when substringing
+  $quantifierAction = getQuantifierAction($quantifier);
+  if($quantifierAction >= 0) {
     $extraChar = 1;
+    // parsed = parsed * quantifier action
+    $parsed = array_fill(0, $quantifierAction, $parsed[0]);
   }
-  $parsed = substr($cs, $match[1], strlen($match[0]));
-  $cs = substr_replace($cs, $parsed, $match[1] - 1, strlen($match[0]) + 2 + $extraChar);
+
+  // Remove pipes, this needs to be done after multiplication to ensure they get
+  // different evaluations.
+  foreach ($parsed as &$s) {
+    $or = explode('|', $s);
+    $s = $or[array_rand($or, 1)];
+  }
+
+  // Concat the evaluated string
+  $innerEvaluted = implode(',', $parsed);
+
+  // Put it back without quantifier and parens.
+  $cs = substr_replace($cs, $innerEvaluted, $match[1] - 1, strlen($match[0]) + 2 + $extraChar);
+
+  // Recurse until we have nothing more to parse
   parseX($cs);
 }
 
