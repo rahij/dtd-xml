@@ -85,120 +85,38 @@ function decision($min, $max) {
   return 1;
 }
 
-function getQuantifier($s) {
+function hasQuantifier($s) {
   if($s == '?') { // zero or one
-    $multiply = decision(0, 1);
+    return true;
   } elseif($s == '+') { // one or more
-    $multiply = decision(0, 1);
+    return true;
   } elseif($s == '*') { // zero or more
-    $multiply = decision(0, 1);
-  } else {
-    return [false, 1];
-  }
-
-  return [true, $s];
-}
-
-
-function parseX($cs) {
-  // Find leftmost parenthesis
-  $currentChar = 0;
-  $endChar = 0;
-  $parenCount = 0;
-  $foundParenthesis = false;
-  for($i = 0; $i < strlen($cs); $i++) {
-    $char = substr($cs, $i, 1);
-    if($char == '(') {
-      $parenCount++;
-      if(!$foundParenthesis) { $currentChar = $i + 1; }
-      $foundParenthesis = true;
-    }
-
-    if($char == ')') {
-      $parenCount--;
-    }
-
-    if($parenCount == 0 && $foundParenthesis) {
-      $endChar = $i;
-      break;
-    }
-  }
-  if($foundParenthesis) {
-    print_r(getQuantifier(@$cs[$endChar + 1]));
-    print(substr($cs, $currentChar, $endChar - $currentChar) . "\n");
-    $end = parseX(substr($cs, $currentChar, $endChar - $currentChar));
-    if($end) {
-      return substr($cs, $currentChar, $endChar - $currentChar);
-    } else {
-      return $cs;
-    }
-  } else {
     return true;
   }
+
+  return false;
 }
 
-//parseX("(to+,(from|heading)*,body)+");
-parseX("(a, b,(c, d,(e, f)*))+");
+function parseX($cs) {
+  echo $cs . "\n";
+  $foundParens = preg_match('/\(([^(]*?)\)/', $cs, $matches, PREG_OFFSET_CAPTURE);
+  if($foundParens === 0) return;
 
-/*
-function parseContentSpecification($contentSpecification) {
-  $parsedCharacters = 0;
-  while($parsedCharacters < size($contentSpecification)) {
-    if (substr($contentSpecification, $parsedCharacters, 1) == '(') {
-      $cs = explode($contentSpecification);
-      $parenCount = 1;
-      for($i = $parsedCharacters; $i < size($cs); $i++) {
-        if($cs[$i] == '(') { $parenCount++; }
-        if($cs[$i] == ')') { $parenCount--; }
-        if($parenCount == 0) {
-          $endCharacter = $i;
-          break;
-        }
-      }
+  $match = $matches[1];
+  $quantifier = substr($cs, $matches[1][1] + strlen($matches[1][0])+1, 1);
 
-      // Found matching parenthesis
-      $multiply = 1;
-      if($cs[$endCharacter + 1] == '?') { // zero or one
-        $multiply = decision(0, 1);
-        $cs[$endCharacter + 1] = '';
-      } elseif($cs[$endCharacter + 1] == '+') { // one or more
-        $multiply = decision(0, 1);
-        $cs[$endCharacter + 1] = '';
-      } elseif($cs[$endCharacter + 1] == '*') { // zero or more
-        $multiply = decision(0, 1);
-        $cs[$endCharacter + 1] = '';
-      }
-      $inside = replaceParenthesis($cs, $parsedCharacters, $endCharacter);
-
-      for($i = $parsedCharacters; $i < $endCharacter; i++) {
-        $cs[$i] = '';
-      }
-      $cs[$parsedCharacter] = $inside;
-      $contentSpecification = implode($cs);
-    }
-
-    $parsedCharacters++;
+  // Evaluate quantifier
+  $extraChar = 0;
+  if($quantifierAction = hasQuantifier($quantifier)) {
+    // Do thing
+    echo $quantifierAction;
+    $extraChar = 1;
   }
+  $parsed = substr($cs, $match[1], strlen($match[0]));
+  $cs = substr_replace($cs, $parsed, $match[1] - 1, strlen($match[0]) + 2 + $extraChar);
+  parseX($cs);
 }
 
-function parseParenthesis($cs, $start, $end) {
-  $contentSpecification = implode($cs);
-  $contentSpecification = substr($contentSpecification, $start, $end);
-  return parseContentSpecification($contentSpecification);
-}*/
+parseX('(a,b,(c,d,(f,g)+),(a|b|c))*') . "\n";
 
 //$dtx = new DTDtoXML(file_get_contents("test.dtd"));
-
-
-
-/*$dtd = \Soothsilver\DtdParser\DTD::parseText(file_get_contents("test.dtd"));
-print_r($dtd);
-foreach($dtd->generalEntities as $entity){
-  echo $entity->Name . ": " . $entity->replacementText . "\n";
-}
-
-foreach($dtd->parameterEntities as $entity) {
-  echo $entity->Name . ": " . $entity->replacementText . "\n";
-}*/
-
-//evaluateContentSpecification($dtd->elements[key($dtd->elements)]->contentSpecification);
