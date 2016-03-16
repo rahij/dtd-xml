@@ -1,4 +1,15 @@
 <?php
+/*
+** Usage:
+** $dtx = new DTDtoXML(file_get_contents("test.dtd"));
+** $dtd->writeXML();
+** Returns XML if it was passed a valid DTD, warnings otherwise
+**
+** TODO: Handle errors / warnings.
+** TODO: Make API nicer to use?
+**
+**/
+
 $loader = require '../vendor/autoload.php';
 
 class DTDtoXML {
@@ -16,7 +27,6 @@ class DTDtoXML {
 
       if($this->dtdParser->isWellFormedAndValid()) {
         $this->generateXML();
-        $this->writeXML();
       } else {
         print_r($this->dtdParser->errors);
       }
@@ -180,6 +190,3 @@ class DTDtoXML {
     return $this->faker->words($this->faker->numberBetween($minLength, $maxLength), true);
   }
 }
-
-
-$dtx = new DTDtoXML(file_get_contents("test.dtd"));
