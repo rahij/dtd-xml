@@ -2,15 +2,19 @@
 $loader = require '../vendor/autoload.php';
 
 class DTDtoXML {
+  private $dtdContent;
   private $dtdParser;
+  private $domImplementation;
   private $xmlTree;
 
   public function __construct($dtd) {
+      $this->dtdContent = $dtd;
       $this->dtdParser = \Soothsilver\DtdParser\DTD::parseText($dtd);
       print_r($this->dtdParser);
 
       if($this->dtdParser->isWellFormedAndValid()) {
         $this->generateXML();
+        $this->writeXML();
       } else {
         print_r($this->dtdParser->errors);
       }
@@ -21,29 +25,74 @@ class DTDtoXML {
   }
 
   public function generateXML() {
-    $this->xmlTree = new DOMDocument('1.0', 'UTF-8');
-
     $root = $this->dtdParser->elements[key($this->dtdParser->elements)];
 
-    $rootElement = $this->xmlTree->createElement($root->type);
+    $this->domImplementation = new DOMImplementation();
 
-    // loop through attrlist and add attributes
+    $dtdData = 'data://text/plain;base64,' . base64_encode($this->dtdContent);
+    $dtd = $this->domImplementation->createDocumentType($root->type, '', $dtdData);
+
+    $this->xmlTree = $this->domImplementation->createDocument(NULL, NULL, $dtd);
+    $this->xmlTree->xmlVersion = '1.0';
+    $this->xmlTree->encoding="UTF-8";
+
+    $rootElement = $this->xmlTree->createElement($root->type);
     $this->xmlTree->appendChild($rootElement);
 
     $this->addChildren($root, $rootElement);
   }
 
+  private function addAttributes($dtdNode, $xmlNode) {
+    $attributes = $this->dtdParser->elements[$dtdNode->type]->attributes;
+    foreach($attributes as $attribute) {
+      $value = '';
+
+      if($attribute->defaultType == '#IMPLIED') {
+        if(mt_rand(0, 99) > 49)
+          $value = $this->stringGenerator();
+      } else if($attribute->defaultType == '#REQUIRED') {
+        $value = $this->stringGenerator();
+      } else if($attribute->defaultType == '#FIXED') {
+        $value = $attribute->defaultValue;
+      } else if(count($attribute->enumeration) > 0) { // Enumeration
+          if(mt_rand(0, 99) > 20) {
+            $value = $attribute->enumeration[array_rand($attribute->enumeration)];
+          }
+      } else if($attribute->defaultValue) {
+        if(mt_rand(0, 99) > 49) {
+          $value = $attribute->defaultValue;
+        }
+      }
+
+      if(strlen($value) > 0)
+        $xmlNode->setAttribute($attribute->name, $value);
+    }
+  }
+
   private function addChildren($dtdNode, $xmlNode) {
-    print_r($dtdNode->contentSpecification);
+    $this->addAttributes($dtdNode, $xmlNode);
+
     $children = $this->parseContentSpecification($dtdNode->contentSpecification);
-    // Iterate through children and recursively call addChildren on of them
-    echo "\n\n";
-    echo "Children: $children \n";
+    $children = explode(',', $children);
+    foreach($children as $child) {
+      if(strlen($child) == 0) continue;
+
+      if($child == '#PCDATA' or $child == 'ANY') {
+        $xmlNode->nodeValue = $this->stringGenerator();
+      } else if($child == 'EMPTY') {
+        // Nothing
+      } else {
+        $childNode = $this->dtdParser->elements[$child];
+        $element = $this->xmlTree->createElement($childNode->type);
+        $xmlNode->appendChild($element);
+        $this->addChildren($childNode, $element);
+      }
+    }
   }
 
   public function writeXML() {
-    if($XMLtree->validate()) {
-      return $XMLtree->saveXML();
+    if($this->xmlTree->validate()) {
+      echo $this->xmlTree->saveXML()."\n";
     } else {
       // errors??
     }
@@ -79,6 +128,17 @@ class DTDtoXML {
     $foundParens = preg_match('/\(([^(]*?)\)/', $cs, $matches, PREG_OFFSET_CAPTURE);
     if($foundParens === 0) {
       // Go through each element in the final list and check for individual quantifiers
+      $elements = explode(',', $cs);
+      foreach($elements as &$element) {
+        $lastChar = substr($element, -1, 1);
+        $quantifierAction = $this->getQuantifierAction($lastChar);
+        if($quantifierAction >= 0) {
+          $element = substr($element, 0, -1);
+          $element = implode(',', array_fill(0, $quantifierAction, $element));
+        }
+      }
+      $cs = implode(',', $elements);
+
       return $cs;
     }
 
@@ -114,6 +174,9 @@ class DTDtoXML {
     return $this->parseContentSpecification($cs);
   }
 
+  private function stringGenerator() {
+    return "hej";
+  }
 }
 
 
