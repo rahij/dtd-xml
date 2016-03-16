@@ -7,6 +7,8 @@
 **
 ** TODO: Handle errors / warnings.
 ** TODO: Make API nicer to use?
+** TODO: Make it possible to specify which elements serves as root element.
+**          (Right now the topmost element in the DTD is always root)
 **
 **/
 
