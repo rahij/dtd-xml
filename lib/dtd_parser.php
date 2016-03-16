@@ -6,11 +6,13 @@ class DTDtoXML {
   private $dtdParser;
   private $domImplementation;
   private $xmlTree;
+  private $faker;
 
   public function __construct($dtd) {
       $this->dtdContent = $dtd;
       $this->dtdParser = \Soothsilver\DtdParser\DTD::parseText($dtd);
-      print_r($this->dtdParser);
+      $this->faker = Faker\Factory::create();
+
 
       if($this->dtdParser->isWellFormedAndValid()) {
         $this->generateXML();
@@ -49,9 +51,9 @@ class DTDtoXML {
 
       if($attribute->defaultType == '#IMPLIED') {
         if(mt_rand(0, 99) > 49)
-          $value = $this->stringGenerator();
+          $value = $this->stringGenerator(1, 1);
       } else if($attribute->defaultType == '#REQUIRED') {
-        $value = $this->stringGenerator();
+        $value = $this->stringGenerator(1, 1);
       } else if($attribute->defaultType == '#FIXED') {
         $value = $attribute->defaultValue;
       } else if(count($attribute->enumeration) > 0) { // Enumeration
@@ -174,8 +176,8 @@ class DTDtoXML {
     return $this->parseContentSpecification($cs);
   }
 
-  private function stringGenerator() {
-    return "hej";
+  private function stringGenerator($minLength = 10, $maxLength = 20) {
+    return $this->faker->words($this->faker->numberBetween($minLength, $maxLength), true);
   }
 }
 

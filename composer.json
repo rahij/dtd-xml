@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "soothsilver/dtd-parser": "*"
+        "soothsilver/dtd-parser": "*",
+        "fzaninotto/faker": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
