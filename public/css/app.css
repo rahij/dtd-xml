@@ -1,0 +1,116 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%; }
+
+.navbar {
+  background-color: #3B4142; }
+  .navbar .container-fluid .navbar-header .navbar-toggle {
+    border: none; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #ECF0F1; }
+  .navbar-default .navbar-nav > li > a:hover {
+    background-color: #E74C3C;
+    color: #ECF0F1;
+    color: #ECF0F1; }
+
+.navbar-default .navbar-brand {
+  color: #ECF0F1; }
+
+.navbar-default .navbar-brand:hover {
+  color: #ECF0F1; }
+
+.navbar-collapse {
+  border: 0;
+  box-shadow: none; }
+
+.navbar-default {
+  border: 0; }
+
+.navbar {
+  border-radius: 0px; }
+
+.navbar-nav {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.container-full {
+  margin: 0 auto;
+  width: 100%; }
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ECF0F1; }
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+  background-color: transparent; }
+
+.loginRegisterBox {
+  box-shadow: 0px 5px 45px -10px rgba(71, 71, 71, 0.4);
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 90%;
+  display: block;
+  margin: auto; }
+  .loginRegisterBox h1 {
+    color: #ECF0F1;
+    background-color: #3B4142;
+    text-align: center;
+    font-family: "Lato", Sans-Serif;
+    font-weight: 900;
+    padding: 40px 0px;
+    margin: 0px; }
+  .loginRegisterBox .checkbox {
+    text-align: center;
+    margin: 0;
+    padding: 20px 0px; }
+  .loginRegisterBox .form-group {
+    margin-bottom: 0px; }
+    .loginRegisterBox .form-group .form-control {
+      height: auto;
+      font-size: auto;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 0px;
+      border-radius: 0px;
+      box-shadow: none;
+      text-align: center;
+      background-color: white;
+      padding: 20px 5px; }
+    .loginRegisterBox .form-group input.btn.btn-primary.register, .loginRegisterBox .form-group input.btn.btn-primary.login {
+      background-color: #2980B9;
+      width: 100%;
+      border-radius: 0px;
+      padding: 20px;
+      font-size: 1.4em;
+      border: 0; }
+      .loginRegisterBox .form-group input.btn.btn-primary.register:hover, .loginRegisterBox .form-group input.btn.btn-primary.login:hover {
+        background-color: #2980B9;
+        border: 0; }
+
+@media screen and (min-width: 768px) {
+  .loginRegisterBox {
+    width: 70%;
+    margin-top: 20px; }
+  .navbar-default .navbar-nav > li > a {
+    color: #ECF0F1;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box; }
+    .navbar-default .navbar-nav > li > a:hover {
+      box-shadow: inset 0px -5px 0 -2px #E74C3C;
+      color: #ECF0F1;
+      background-color: transparent; } }
+
+@media screen and (min-width: 992px) {
+  .loginRegisterBox {
+    width: 60%;
+    margin-top: 30px; } }
+
+@media screen and (min-width: 1200px) {
+  .loginRegisterBox {
+    width: 40%;
+    margin-top: 40px; } }
+
+/*# sourceMappingURL=app.css.map */

@@ -1,32 +1,31 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="loginRegisterBox">
+  <h1>Register</h1>
   <form method="POST" action="/auth/register">
     {!! csrf_field() !!}
 
     <div class="form-group">
-      Name
-      <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+      <input class="form-control" type="text" name="name" placeholder="Name" value="{{ old('name') }}">
     </div>
 
     <div class="form-group">
-      Email
-      <input class="form-control" type="email" name="email" value="{{ old('email') }}">
+      <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
     </div>
 
     <div class="form-group">
-      Password
-      <input class="form-control" type="password" name="password">
+      <input class="form-control" type="password" name="password" placeholder="Password">
     </div>
 
     <div class="form-group">
-      Confirm Password
-      <input class="form-control" type="password" name="password_confirmation">
+      <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password">
     </div>
 
     <div class="form-group">
-      <input type="submit" value="Register" class="btn btn-primary" />
+      <input type="submit" value="Register" class="btn btn-primary register" />
     </div>
   </form>
+</div>
 
 @endsection

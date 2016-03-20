@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="loginRegisterBox">
+  <h1>Login</h1>
   <div class="content">
     <form method="POST" action="/auth/login">
       {!! csrf_field() !!}
 
       <div class="form-group">
-        Email
-        <input class="form-control" type="email" name="email" value="{{ old('email') }}">
+        <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
       </div>
 
       <div class="form-group">
-        Password
-        <input class="form-control" type="password" name="password" id="password">
+        <input class="form-control" type="password" name="password" id="password" placeholder="Password">
       </div>
 
       <div class="checkbox">
@@ -20,8 +20,9 @@
       </div>
 
       <div class="form-group">
-        <input type="submit" value="Login" class="btn btn-primary" />
+        <input type="submit" value="Login" class="btn btn-primary login" />
       </div>
     </form>
   </div>
+</div>
 @endsection
