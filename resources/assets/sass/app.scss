@@ -7,7 +7,6 @@ $flat-white: #ECF0F1;
 $flat-blue-light: #2980B9;
 
 $light-gray: #F3F3F3;
-
 $orange: #FFA500;
 
 $font-lato: 'Lato', Sans-Serif;
@@ -17,8 +16,6 @@ $font-lato: 'Lato', Sans-Serif;
 	   -moz-box-shadow: 0px 5px 45px -10px rgba(71,71,71,0.4);
 			box-shadow: 0px 5px 45px -10px rgba(71,71,71,0.4);
 }
-
-// @mixin boxShadowInset($
 
 @mixin box-sizing($style){
 	-webkit-box-sizing: $style;
@@ -33,6 +30,84 @@ html, body {
 	width:100%;
 }
 
+.myButton {
+	background-color:$flat-blue-light;
+	width: 100%;
+	border-radius: 0px;
+	padding:20px;
+	font-size:1.4em;
+	border:0;
+}
+
+.myInputField {
+    height:auto;
+    font-size: auto;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 0px;
+    border-radius:0px;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    text-align: center;
+    background-color: white;
+    padding:20px 5px;
+}
+
+.myHeading {
+	color:$flat-white;
+	background-color:$flat-dark-gray;
+	text-align: center;
+	font-family:$font-lato;
+	font-weight:900;
+	padding:40px 0px;
+	margin:0px;
+}
+
+.btn.btn-primary {
+	@extend .myButton;
+}
+
+textarea.form-control {
+	@extend .myInputField;
+	text-align:left;
+	padding:10px;
+	height:125px;
+}
+
+.shadowBox {
+	@include boxShadow();
+}
+
+.dtd-form-wrapper {
+	width:100%;
+}
+
+.xml-wrapper {
+	@extend .dtd-form-wrapper;
+	margin-top:40px;
+}
+
+.form-group {
+	margin-bottom:0px;
+}
+
+#actionButtons {
+	display:none;
+	.btn.btn-primary.download, .btn.btn-primary.copy{
+		width:50%;
+		float:left;
+	}
+
+	.btn.btn-primary.copy {
+		border-right:1px solid $flat-white;
+	}
+	.btn.btn-primary.download {
+		border-left:1px solid $flat-white;
+	}
+}
+
 .navbar {
 	background-color:$flat-dark-gray;
 	.container-fluid .navbar-header .navbar-toggle {
@@ -40,44 +115,69 @@ html, body {
 	}
 }
 
+h1 {
+	@extend .myHeading;
+}
+
+h2 {
+	@extend .myHeading;
+	font-size: auto;
+}
+
+h3 {
+	@extend .myHeading;
+	font-size:auto;
+}
+
 .navbar-default .navbar-nav>li>a {
 	color:$flat-white;
-	// @include box-sizing(border-box);
 	&:hover {
 		background-color:$flat-red;
 		color:$flat-white;
-		// box-shadow: inset 0px -5px 0 -2px $flat-red;
-		// border-bottom:2px solid $flat-red;
+	}
+	&:active {
+		color:$flat-white;
+	}
+	&:active {
+		color:$flat-white;
+	}
+	&:focus {
 		color:$flat-white;
 	}
 }
 
 .navbar-default .navbar-brand {
 	color:$flat-white;
+	font-family: $font-lato;
+	font-weight:400;
+	&:hover {
+		color:$flat-white;
+	}
+	&:active {
+		color:$flat-white;
+	}
+	&:active {
+		color:$flat-white;
+	}
+	&:focus {
+		color:$flat-white;
+	}
 }
 
-.navbar-default .navbar-brand:hover {
-	color:$flat-white;
-	// font-weight:bold;
-}
-
-.navbar-collapse {
+.navbar-collapse, .navbar-default {
 	border:0;
 	box-shadow:none;
-}
-
-
-.navbar-default {
-	border:0;
 }
 
 .navbar {
 	border-radius:0px;
 }
+
 .navbar-nav {
 	margin-top:0;
 	margin-bottom:0;
 }
+
 .container-full {
   margin: 0 auto;
   width: 100%;
@@ -97,16 +197,8 @@ html, body {
 	width:90%;
 	display:block;
 	margin:auto;
-	// padding-top:15px;
-	// padding:20px;
 	h1 {
-		color:$flat-white;
-		background-color:$flat-dark-gray;
-		text-align: center;
-		font-family:$font-lato;
-		font-weight:900;
-		padding:40px 0px;
-		margin:0px;
+		@extend .myHeading;
 	}
 
 	.checkbox {
@@ -114,35 +206,22 @@ html, body {
 		margin:0;
 		padding:20px 0px;
 	}
+
 	.form-group {
 		margin-bottom:0px;
 		.form-control {
-		    height:auto;
-		    font-size: auto;
-		    line-height: 1.42857143;
-		    color: #555;
-		    background-color: #fff;
-		    background-image: none;
-		    border: 0px;
-		    border-radius:0px;
-		    -webkit-box-shadow:none;
-		    box-shadow:none;
-		    text-align: center;
-		    background-color: white;
-		    padding:20px 5px;
+			@extend .myInputField;
 		}
 		input.btn.btn-primary.register, input.btn.btn-primary.login {
-			background-color:$flat-blue-light;
-    		width: 100%;
-    		border-radius: 0px;
-    		padding:20px;
-    		font-size:1.4em;
-    		border:0;
+			@extend .myButton;
     		&:hover {
     			background-color:$flat-blue-light;
     			border:0;
     		}
     	}
+	}
+	.xml-wrapper {
+		margin-top:0;
 	}
 }
 
@@ -157,7 +236,6 @@ html, body {
 		@include box-sizing(border-box);
 		&:hover {
 			box-shadow: inset 0px -5px 0 -2px $flat-red;
-			// border-bottom:2px solid $flat-red;
 			color:$flat-white;
 			background-color:transparent;
 		}
@@ -168,10 +246,20 @@ html, body {
 		width:60%;
 		margin-top:30px;
 	}
+
 }
 @media screen and (min-width: 1200px) {
 	.loginRegisterBox{
 		width:40%;
 		margin-top:40px;
+	}
+	.dtd-form-wrapper, .xml-wrapper {
+		width:50%;
+		float:left;
+		padding:20px;
+	}
+
+	.xml-wrapper {
+		margin-top:0px;
 	}
 }

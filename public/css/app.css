@@ -3,30 +3,103 @@ html, body {
   padding: 0;
   width: 100%; }
 
+.myButton, .btn.btn-primary, .loginRegisterBox .form-group input.btn.btn-primary.register, .loginRegisterBox .form-group input.btn.btn-primary.login {
+  background-color: #2980B9;
+  width: 100%;
+  border-radius: 0px;
+  padding: 20px;
+  font-size: 1.4em;
+  border: 0; }
+
+.myInputField, textarea.form-control, .loginRegisterBox .form-group .form-control {
+  height: auto;
+  font-size: auto;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  text-align: center;
+  background-color: white;
+  padding: 20px 5px; }
+
+.myHeading, h1, h2, h3, .loginRegisterBox h1 {
+  color: #ECF0F1;
+  background-color: #3B4142;
+  text-align: center;
+  font-family: "Lato", Sans-Serif;
+  font-weight: 900;
+  padding: 40px 0px;
+  margin: 0px; }
+
+textarea.form-control {
+  text-align: left;
+  padding: 10px;
+  height: 125px; }
+
+.shadowBox {
+  box-shadow: 0px 5px 45px -10px rgba(71, 71, 71, 0.4); }
+
+.dtd-form-wrapper, .xml-wrapper {
+  width: 100%; }
+
+.xml-wrapper {
+  margin-top: 40px; }
+
+.form-group {
+  margin-bottom: 0px; }
+
+#actionButtons {
+  display: none; }
+  #actionButtons .btn.btn-primary.download, #actionButtons .btn.btn-primary.copy {
+    width: 50%;
+    float: left; }
+  #actionButtons .btn.btn-primary.copy {
+    border-right: 1px solid #ECF0F1; }
+  #actionButtons .btn.btn-primary.download {
+    border-left: 1px solid #ECF0F1; }
+
 .navbar {
   background-color: #3B4142; }
   .navbar .container-fluid .navbar-header .navbar-toggle {
     border: none; }
 
+h2 {
+  font-size: auto; }
+
+h3 {
+  font-size: auto; }
+
 .navbar-default .navbar-nav > li > a {
   color: #ECF0F1; }
   .navbar-default .navbar-nav > li > a:hover {
     background-color: #E74C3C;
-    color: #ECF0F1;
+    color: #ECF0F1; }
+  .navbar-default .navbar-nav > li > a:active {
+    color: #ECF0F1; }
+  .navbar-default .navbar-nav > li > a:active {
+    color: #ECF0F1; }
+  .navbar-default .navbar-nav > li > a:focus {
     color: #ECF0F1; }
 
 .navbar-default .navbar-brand {
-  color: #ECF0F1; }
+  color: #ECF0F1;
+  font-family: "Lato", Sans-Serif;
+  font-weight: 400; }
+  .navbar-default .navbar-brand:hover {
+    color: #ECF0F1; }
+  .navbar-default .navbar-brand:active {
+    color: #ECF0F1; }
+  .navbar-default .navbar-brand:active {
+    color: #ECF0F1; }
+  .navbar-default .navbar-brand:focus {
+    color: #ECF0F1; }
 
-.navbar-default .navbar-brand:hover {
-  color: #ECF0F1; }
-
-.navbar-collapse {
+.navbar-collapse, .navbar-default {
   border: 0;
   box-shadow: none; }
-
-.navbar-default {
-  border: 0; }
 
 .navbar {
   border-radius: 0px; }
@@ -52,43 +125,17 @@ html, body {
   width: 90%;
   display: block;
   margin: auto; }
-  .loginRegisterBox h1 {
-    color: #ECF0F1;
-    background-color: #3B4142;
-    text-align: center;
-    font-family: "Lato", Sans-Serif;
-    font-weight: 900;
-    padding: 40px 0px;
-    margin: 0px; }
   .loginRegisterBox .checkbox {
     text-align: center;
     margin: 0;
     padding: 20px 0px; }
   .loginRegisterBox .form-group {
     margin-bottom: 0px; }
-    .loginRegisterBox .form-group .form-control {
-      height: auto;
-      font-size: auto;
-      line-height: 1.42857143;
-      color: #555;
-      background-color: #fff;
-      background-image: none;
-      border: 0px;
-      border-radius: 0px;
-      box-shadow: none;
-      text-align: center;
-      background-color: white;
-      padding: 20px 5px; }
-    .loginRegisterBox .form-group input.btn.btn-primary.register, .loginRegisterBox .form-group input.btn.btn-primary.login {
+    .loginRegisterBox .form-group input.btn.btn-primary.register:hover, .loginRegisterBox .form-group input.btn.btn-primary.login:hover {
       background-color: #2980B9;
-      width: 100%;
-      border-radius: 0px;
-      padding: 20px;
-      font-size: 1.4em;
       border: 0; }
-      .loginRegisterBox .form-group input.btn.btn-primary.register:hover, .loginRegisterBox .form-group input.btn.btn-primary.login:hover {
-        background-color: #2980B9;
-        border: 0; }
+  .loginRegisterBox .xml-wrapper {
+    margin-top: 0; }
 
 @media screen and (min-width: 768px) {
   .loginRegisterBox {
@@ -111,6 +158,12 @@ html, body {
 @media screen and (min-width: 1200px) {
   .loginRegisterBox {
     width: 40%;
-    margin-top: 40px; } }
+    margin-top: 40px; }
+  .dtd-form-wrapper, .xml-wrapper, .xml-wrapper {
+    width: 50%;
+    float: left;
+    padding: 20px; }
+  .xml-wrapper {
+    margin-top: 0px; } }
 
 /*# sourceMappingURL=app.css.map */
