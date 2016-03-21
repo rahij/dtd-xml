@@ -1,7 +1,12 @@
 <?php
+
+namespace App\Helpers;
+
+use DOMImplementation;
+use Faker;
 /*
 ** Usage:
-** $dtx = new DTDtoXML(file_get_contents("test.dtd"));
+** $dtd = new DTDtoXML(file_get_contents("test.dtd"));
 ** $dtd->writeXML();
 ** Returns XML if it was passed a valid DTD, warnings otherwise
 **
@@ -11,8 +16,6 @@
 **          (Right now the topmost element in the DTD is always root)
 **
 **/
-
-$loader = require '../vendor/autoload.php';
 
 class DTDtoXML {
   private $dtdContent;

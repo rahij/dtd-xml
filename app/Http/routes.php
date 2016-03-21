@@ -21,6 +21,9 @@
 |
 */
 
+Route::get('/data/default_dtd', 'DataController@default_dtd');
+Route::post('/data/generate', 'DataController@generate');
+
 Route::group(['middleware' => ['web']], function () {
   Route::get('auth/login', 'Auth\AuthController@getLogin');
   Route::post('auth/login', 'Auth\AuthController@postLogin');
