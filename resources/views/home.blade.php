@@ -22,7 +22,7 @@
         </div>
         <div id="actionButtons">
           <button class="btn btn-primary copy">Select</button>
-          <button class="btn btn-primary download">Download XML</button>
+          <a class="btn btn-primary download" download="generated-xml">Download XML</a>
         </div>
       </div>
     </div>
@@ -34,10 +34,16 @@
 
   <script type="text/javascript">
     $("document").ready(function() {
+      /*
+      $("textarea").on('change keyup paste', function(e) {
+        console.log($(this));
+        $(this).css('height', 0);
+        $(this).css('height', $(this).prop('scrollHeight'));
+      });*/
+
       $.get("/data/default_dtd", function(response) {
         $("#dtd-content").val(response);
       });
-
 
       $("#dtd-form").on('submit', function(e) {
         e.preventDefault();
@@ -54,7 +60,15 @@
           }
         });
       });
+
+      $(".copy").on("click", function(e) {
+        $("#xml-output").select();
+      });
+
+      $(".download").on("click", function(e) {
+        $(this).attr("href", 'data:text/xml;charset=utf-8,'
+          + encodeURIComponent($("#xml-output").val()));
+      });
     });
   </script>
 @endsection
-
