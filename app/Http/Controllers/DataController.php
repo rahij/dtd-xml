@@ -15,7 +15,10 @@ class DataController extends Controller
 
   public function generate(Request $request) {
     $dtd = $request->input('dtd');
-    $dtd_parser = new DTDtoXML($dtd);
-    return $dtd_parser->writeXML();
+    try {
+      return DTDtoXML::parseDTD($dtd);
+    } catch(\Exception $e) {
+      return $e->getMessage();
+    }
   }
 }

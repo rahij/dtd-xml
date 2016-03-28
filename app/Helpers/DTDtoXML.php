@@ -18,8 +18,6 @@ use Faker;
 
 $loader = require '../vendor/autoload.php';
 
-class DTDException extends Exception { }
-
 class DTDtoXML {
   private static $dtdContent;
   private static $dtdParser;
@@ -40,7 +38,7 @@ class DTDtoXML {
         foreach(self::$dtdParser->errors as $error) {
           $errorString .= $error->getMessage() . "\n";
         }
-        throw new Exception($errorString);
+        throw new \Exception($errorString);
       }
   }
 
