@@ -46,7 +46,8 @@ textarea.form-control {
   width: 100%; }
 
 .xml-wrapper {
-  margin-top: 40px; }
+  margin-top: 40px;
+  margin-bottom: 40px; }
 
 .form-group {
   margin-bottom: 0px; }
@@ -55,11 +56,15 @@ textarea.form-control {
   display: none; }
   #actionButtons .btn.btn-primary.download, #actionButtons .btn.btn-primary.copy {
     width: 50%;
-    float: left; }
+    float: left;
+    margin-bottom: 40px; }
   #actionButtons .btn.btn-primary.copy {
     border-right: 1px solid #ECF0F1; }
   #actionButtons .btn.btn-primary.download {
     border-left: 1px solid #ECF0F1; }
+
+.panel-body {
+  padding: 0px; }
 
 .navbar {
   background-color: #3B4142; }

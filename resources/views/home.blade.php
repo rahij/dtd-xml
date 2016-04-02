@@ -57,6 +57,7 @@
           success: function(data) {
             $("#xml-output").html(data);
             $("#actionButtons").show();
+            $('html,body').animate({scrollTop: $(".xml-wrapper").offset().top},'fast');
           }
         });
       });
