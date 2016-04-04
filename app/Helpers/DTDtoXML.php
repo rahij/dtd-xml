@@ -40,6 +40,7 @@ class DTDtoXML {
         self::generateXML();
         self::writeXML();
     } else {  //Throw exceptions for each error caught in parsing
+
         $errorString = '';
         foreach(self::$dtdParser->errors as $error) {
           $errorString .= $error->getMessage() . "\n";

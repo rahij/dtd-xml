@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Laravel</title>
+    <title>CS4221 Project - DTD-XML</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,900,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
@@ -23,6 +23,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             @if (Auth::check())
+			  <li><a href="profile">Profile</a></li>
               <li><a href="/auth/logout">Logout</a></li>
             @else
               <li><a href="/auth/register">Register</a></li>

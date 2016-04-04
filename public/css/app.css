@@ -25,7 +25,7 @@ html, body {
   background-color: white;
   padding: 20px 5px; }
 
-.myHeading, h1, h2, h3, .loginRegisterBox h1 {
+.myHeading, h1, h2, h3, .loginRegisterBox h1, .show-wrapper h1 {
   color: #ECF0F1;
   background-color: #3B4142;
   text-align: center;
@@ -37,39 +37,51 @@ html, body {
 textarea.form-control {
   text-align: left;
   padding: 10px;
-  height: 125px; }
+  height: 200px; }
 
 .shadowBox {
   box-shadow: 0px 5px 45px -10px rgba(71, 71, 71, 0.4); }
 
-.dtd-form-wrapper, .xml-wrapper {
+.dtd-form-wrapper, .xml-wrapper, .save-wrapper {
   width: 100%; }
 
 .xml-wrapper {
   margin-top: 40px;
-  margin-bottom: 40px; }
+  margin-bottom: 40px;  }
+  
+.save-wrapper {
+  margin-top: 80px; }
 
 .form-group {
   margin-bottom: 0px; }
 
+#copyButton, #downloadButton, #saveButton {
+  display: none; 
+  border-bottom: 3px solid #ECF0F1;
+  float: left;	}
+	
+#downloadButton, #saveButton {
+  margin-left: 2%;}
+
 #actionButtons {
   display: none; }
-  #actionButtons .btn.btn-primary.download, #actionButtons .btn.btn-primary.copy {
+#actionButtons .btn.btn-primary.download, #actionButtons .btn.btn-primary.copy {
     width: 50%;
     float: left;
     margin-bottom: 40px; }
-  #actionButtons .btn.btn-primary.copy {
+#actionButtons .btn.btn-primary.copy {
     border-right: 1px solid #ECF0F1; }
-  #actionButtons .btn.btn-primary.download {
+#actionButtons .btn.btn-primary.download {
     border-left: 1px solid #ECF0F1; }
 
 .panel-body {
   padding: 0px; }
-
+  
 .navbar {
   background-color: #3B4142; }
-  .navbar .container-fluid .navbar-header .navbar-toggle {
-    border: none; }
+  
+.navbar .container-fluid .navbar-header .navbar-toggle {
+  border: none; }
 
 h2 {
   font-size: auto; }
@@ -123,7 +135,7 @@ h3 {
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
   background-color: transparent; }
 
-.loginRegisterBox {
+.loginRegisterBox, .show-wrapper {
   box-shadow: 0px 5px 45px -10px rgba(71, 71, 71, 0.4);
   -ms-box-sizing: border-box;
   box-sizing: border-box;
@@ -141,6 +153,31 @@ h3 {
       border: 0; }
   .loginRegisterBox .xml-wrapper {
     margin-top: 0; }
+	
+table {
+	width: 100%;
+}
+
+th, td {
+    text-align: center;
+	padding: 2px;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.xmlname {
+  font-size: 1.4em;
+}
+
+.firstcol {
+	width: 60%;
+}
+
+.secondcol, .thirdcol {
+	width: 20%;
+}
 
 @media screen and (min-width: 768px) {
   .loginRegisterBox {
@@ -164,7 +201,7 @@ h3 {
   .loginRegisterBox {
     width: 40%;
     margin-top: 40px; }
-  .dtd-form-wrapper, .xml-wrapper, .xml-wrapper {
+  .dtd-form-wrapper, .xml-wrapper {
     width: 50%;
     float: left;
     padding: 20px; }

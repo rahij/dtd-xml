@@ -23,6 +23,10 @@
 
 Route::get('/data/default_dtd', 'DataController@default_dtd');
 Route::post('/data/generate', 'DataController@generate');
+Route::post('/data/savexml', 'DataController@savexml');
+Route::get('/data/showsave', 'DataController@showsave');
+Route::post('/data/getxml', 'DataController@getxml');
+Route::post('/data/deletexml', 'DataController@deletexml');
 
 Route::group(['middleware' => ['web']], function () {
   Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -33,4 +37,5 @@ Route::group(['middleware' => ['web']], function () {
   Route::post('auth/register', 'Auth\AuthController@postRegister');
 
   Route::get('/', 'HomeController@index');
+  Route::get('profile', 'ProfileController@index');
 });

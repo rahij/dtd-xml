@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function conversions() {
       return $this->hasMany('App\Conversion');
     }
+	
+    public function savedxml() {
+      return $this->hasMany('App\Savedxml');
+    }
 }
