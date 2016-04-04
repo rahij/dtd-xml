@@ -25,6 +25,12 @@ class DTDtoXML {
   private static $xmlTree;
   private static $faker;
 
+  /**
+  * Parse a DTD string and generate equivalent XML.
+  *
+  * @param $dtd the string DTD
+  * @throws invalidDTDException if the passed DTD is invalid
+  */
   public static function parseDTD($dtd) {
       self::$dtdContent = $dtd;
       self::$dtdParser = \Soothsilver\DtdParser\DTD::parseText($dtd);
@@ -33,7 +39,7 @@ class DTDtoXML {
       if(self::$dtdParser->isWellFormedAndValid()) {
         self::generateXML();
         self::writeXML();
-      } else {
+    } else {  //Throw exceptions for each error caught in parsing
         $errorString = '';
         foreach(self::$dtdParser->errors as $error) {
           $errorString .= $error->getMessage() . "\n";
@@ -42,6 +48,11 @@ class DTDtoXML {
       }
   }
 
+  /**
+  * Generate a XML in the form of a DOMDocument that satisfies the DTD. The
+  * quantifiers in the DTD are parsed and where applicable assigned values
+  * at random. The resulting XML is encoded in UTF-8.
+  */
   private static function generateXML() {
     $root = self::$dtdParser->elements[key(self::$dtdParser->elements)];
 
@@ -60,6 +71,15 @@ class DTDtoXML {
     self::addChildren($root, $rootElement);
   }
 
+  /**
+  * Add attributes specified in a DTD node to a XML node. A probability
+  * distribution is applied for each attribute that depends on its default
+  * type. Attribute values are assigned according to DTD schema and generated
+  * at random if not fixed or enumerated.
+  *
+  * @param $dtdNode dtd element from parsed DTD
+  * @param $xmlNode xml element in DOMImplementation
+  */
   private static function addAttributes($dtdNode, $xmlNode) {
     $attributes = self::$dtdParser->elements[$dtdNode->type]->attributes;
     foreach($attributes as $attribute) {
@@ -87,6 +107,14 @@ class DTDtoXML {
     }
   }
 
+  /**
+  * Add all child nodes of a DTD node to the corresponding XML node. If
+  * data type is PCDATA or ANY a string of 10-20 characters is generated
+  * and set as the value. All subsequent child nodes are added.
+  *
+  * @param $dtdNode dtd element from parsed DTD
+  * @param $xmlNode xml element in DOMImplementation
+  */
   private static function addChildren($dtdNode, $xmlNode) {
     //self::addAttributes($dtdNode, $xmlNode);
 
@@ -108,6 +136,9 @@ class DTDtoXML {
     }
   }
 
+  /**
+  * Validate the XML and echo the XML in string format.
+  */
   private static function writeXML() {
     if(self::$xmlTree->validate()) {
       echo self::$xmlTree->saveXML()."\n";
@@ -117,6 +148,13 @@ class DTDtoXML {
     }
   }
 
+  /**
+  * Get an amount from a quantifier. The amount is assigned according to
+  * a probability distribution depending on the quantifier.
+  *
+  * @param $s string quantifier
+  * @return amount
+  */
   private static function getQuantifierAction($s) {
     $limit = 49;
     $amount = -1;
@@ -143,6 +181,13 @@ class DTDtoXML {
     return $amount;
   }
 
+  /**
+  * Parse a DTD content specification into a string where all quantifiers
+  * have been translated to repeated elements and removed. The returned string
+  * is a list of child nodes separated by ','.
+  *
+  * @return string
+  */
   private static function parseContentSpecification($cs) {
     $foundParens = preg_match('/\(([^(]*?)\)/', $cs, $matches, PREG_OFFSET_CAPTURE);
     if($foundParens === 0) {
@@ -193,6 +238,11 @@ class DTDtoXML {
     return self::parseContentSpecification($cs);
   }
 
+  /**
+  * Generate a random string.
+  *
+  * @return string
+  */
   private static function stringGenerator($minLength = 10, $maxLength = 20) {
     return self::$faker->words(self::$faker->numberBetween($minLength, $maxLength), true);
   }
