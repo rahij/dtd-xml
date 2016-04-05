@@ -65,6 +65,8 @@ class DTDtoXML {
     self::$xmlTree = self::$domImplementation->createDocument(NULL, NULL, $dtd);
     self::$xmlTree->xmlVersion = '1.0';
     self::$xmlTree->encoding="UTF-8";
+    self::$xmlTree->preserveWhiteSpace = false;
+    self::$xmlTree->formatOutput = true;
 
     $rootElement = self::$xmlTree->createElement($root->type);
     self::$xmlTree->appendChild($rootElement);
