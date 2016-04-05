@@ -50,13 +50,20 @@ class DataController extends Controller
 	foreach ($saves as $save) {
 		$xml_id = $save->id;
 		$xml_name = $save->savedxml_name;
+		$xml_raw = $save->xml;
+		
+		//Code below is PHP way of encodeURIComponent
+		//Needed to convert xml from database into downloadable format
+		//Reference: http://stackoverflow.com/questions/1734250/what-is-the-equivalent-of-javascripts-encodeuricomponent-in-php
+		$revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+        $xml_output = strtr(rawurlencode($xml_raw), $revert);
 		echo "<tr>";
 		
 		echo "<td class=\"xmlname\">";
 		echo $xml_name;
 		echo "</td>";
 		echo "<td>";
-		echo "<a xml_id=\"$xml_id\" class=\"btn btn-primary download secondcol\" download=\"$xml_name\">Download</a>";
+		echo "<a xml_id=\"$xml_id\" class=\"btn btn-primary download secondcol\" href=\"data:text/xml;charset=utf-8,$xml_output\" download=\"$xml_name\">Download</a>";
 		echo "</td>";
 		echo "<td>";
 		echo "<a xml_id=\"$xml_id\" class=\"btn btn-primary delete thirdcol\">Delete</a>";
@@ -67,13 +74,8 @@ class DataController extends Controller
 	echo "</table>";
   }
   
-  public function getxml(Request $request) {
-	$result = DB::table('savedxml')->where('id', $request->input('xml_id'))->value('xml');
-
-	return $result;
-  }  
-  
   public function deletexml(Request $request) {
 	DB::table('savedxml')->where('id', $request->input('xml_id'))->delete();
   }
+  
 }

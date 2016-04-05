@@ -25,7 +25,6 @@ Route::get('/data/default_dtd', 'DataController@default_dtd');
 Route::post('/data/generate', 'DataController@generate');
 Route::post('/data/savexml', 'DataController@savexml');
 Route::get('/data/showsave', 'DataController@showsave');
-Route::post('/data/getxml', 'DataController@getxml');
 Route::post('/data/deletexml', 'DataController@deletexml');
 
 Route::group(['middleware' => ['web']], function () {
