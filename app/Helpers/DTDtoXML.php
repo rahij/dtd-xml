@@ -119,7 +119,7 @@ class DTDtoXML {
   * @param $xmlNode xml element in DOMImplementation
   */
   private static function addChildren($dtdNode, $xmlNode) {
-    //self::addAttributes($dtdNode, $xmlNode);
+    self::addAttributes($dtdNode, $xmlNode);
 
     $children = self::parseContentSpecification($dtdNode->contentSpecification);
     $children = explode(',', $children);
